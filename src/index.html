@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width">
   </head>
 
-  <body onload="start()">
-    <canvas id="glcanvas">
+  <body>
+    <canvas id="glcanvas" width="640" height="480">
       Your browser doesn't appear to support the
       <code>&lt;canvas&gt;</code> element.
     </canvas>
@@ -18,14 +18,9 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-    <!-- build:js({.tmp/serve,.tmp/partials}) scripts/app.js -->
-    <!-- inject:js -->
-    <!-- js files will be automatically insert here -->
-    <!-- endinject -->
+    <!-- build:js(.tmp/serve) scripts/app.js -->
+    <script src="app/main.js"></script>
+    <!-- endbuild -->
 
-    <script src="app/raycasting.js"></script>
-    <script>
-      new Raycasting();
-    </script>
   </body>
 </html>

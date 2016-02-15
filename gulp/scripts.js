@@ -15,7 +15,7 @@ function webpackWrapper(watch, test, callback) {
     module: {
       loaders: [{ test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader'] }],
     },
-    output: { filename: 'raycasting.js' },
+    output: { filename: 'main.js' },
   };
 
   if (watch) {
@@ -41,7 +41,7 @@ function webpackWrapper(watch, test, callback) {
     }
   };
 
-  const sources = [Path.join(conf.paths.src, '/app/raycasting.js')];
+  const sources = [Path.join(conf.paths.src, '/app/main.js')];
 
   return Gulp.src(sources)
     .pipe(webpack(webpackOptions, null, webpackChangeHandler))
