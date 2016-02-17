@@ -16,8 +16,9 @@ export default class WMap {
   }
 
   constructor(map) {
-    const err = WMap.validMap(map);
+    this.map = map;
 
+    const err = WMap.validMap(map);
     if (err) {
       throw new Error(err.message);
     }
@@ -59,6 +60,18 @@ export default class WMap {
     for (const value of this.mandatoryList) {
       if (!dataCount[value]) {
         return WMapErrors.generateError([0, 0], WMapErrors.TYPE_MISSING, [value]);
+      }
+    }
+
+    return null;
+  }
+
+  findFirst(type) {
+    for (let i = 0; i < this.map.length; i++) {
+      for (let j = 0; j < this.map[i].length; j++) {
+        if (this.map[i][j] === type) {
+          return [i, j];
+        }
       }
     }
 
