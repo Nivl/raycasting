@@ -35,7 +35,7 @@ export default class WMap {
       const row = map[i];
 
       if (Array.isArray(row) === false) {
-        return WMapErrors.generateError([i, j], WMapErrors.NOT_AN_ARRAY);
+        return WMapErrors.generateError([i, 0], WMapErrors.NOT_AN_ARRAY);
       }
 
       for (let j = 0; j < row.length; j++) {
