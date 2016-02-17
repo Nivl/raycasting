@@ -1,31 +1,28 @@
 export default class Raycasting {
   constructor() {
     const canvas = document.getElementById('glcanvas');
-    this.gl = this.initWebGL(canvas);
+    this.width = canvas.width;
+    this.height = canvas.height;
+    this.ctx = null;
 
-    if (this.gl) {
-      // Set clear color to black, fully opaque
-      this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
-      // Enable depth testing
-      this.gl.enable(this.gl.DEPTH_TEST);
-      // Near things obscure far things
-      this.gl.depthFunc(this.gl.LEQUAL);
-      // Clear the color as well as the depth buffer.
-      this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+    if (canvas.getContext) {
+      this.ctx = canvas.getContext('2d');
+
+      // Set default color
+      this.ctx.fillStyle = '#87CEFA';
+      this.ctx.fillRect(0, 0, this.width, this.height);
     }
   }
 
-  initWebGL(canvas) {
-    let gl = null;
-
-    try {
-      gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-    } catch (e) {}
-
-    return gl;
+  loadMap() {
+    // todo
   }
 
-  hasWebGL() {
-    return !!this.gl;
+  start() {
+
+  }
+
+  hasSupport() {
+    return this.ctx !== null;
   }
 }
