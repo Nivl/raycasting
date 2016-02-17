@@ -1,9 +1,12 @@
+import WMap from './map/w-map.js';
+
 export default class Raycasting {
   constructor() {
     const canvas = document.getElementById('glcanvas');
     this.width = canvas.width;
     this.height = canvas.height;
     this.ctx = null;
+    this.map = null;
 
     if (canvas.getContext) {
       this.ctx = canvas.getContext('2d');
@@ -14,15 +17,23 @@ export default class Raycasting {
     }
   }
 
-  loadMap() {
-    // todo
+  loadMap(map) {
+    this.map = new WMap(map);
   }
 
   start() {
-
+    if (this.map) {
+      this.draw();
+    } else {
+      throw new Error('map is missing');
+    }
   }
 
   hasSupport() {
     return this.ctx !== null;
+  }
+
+  draw() {
+
   }
 }
