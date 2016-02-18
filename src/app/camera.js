@@ -43,4 +43,12 @@ export default class Camera {
       y: pov.y - this.pos[1],
     };
   }
+
+  turnRight() {
+    this.viewAngleX -= 0.05;
+  }
+
+  turnLeft() {
+    this.viewAngleX += 0.05;
+  }
 }

@@ -9,7 +9,7 @@ export default class Raycasting {
     this.ctx = null;
     this.map = null;
     this.camera = null;
-    this.events = new Events(this, this.camera);
+    this.isDrawing = false;
     this.screen = {
       w    : canvas.width,
       h    : canvas.height,
@@ -21,10 +21,7 @@ export default class Raycasting {
       this.ctx = canvas.getContext('2d');
 
       // Set default color
-      this.ctx.fillStyle = '#87CEFA';
-      this.ctx.fillRect(0, 0, this.screen.w, this.screen.h);
-      this.ctx.fillStyle = '#C5E3BF';
-      this.ctx.fillRect(0, this.screen.halfH, this.screen.w, this.screen.h);
+      this.clearScreen();
     }
   }
 
@@ -35,6 +32,7 @@ export default class Raycasting {
   start() {
     if (this.map) {
       this.camera = new Camera(this.map.findFirst(WMapTypes.CAMERA), this.screen);
+      this.events = new Events(this, this.camera);
       this.draw();
     } else {
       throw new Error('map is missing');
@@ -45,7 +43,17 @@ export default class Raycasting {
     return this.ctx !== null;
   }
 
+  clearScreen() {
+    this.ctx.fillStyle = '#87CEFA';
+    this.ctx.fillRect(0, 0, this.screen.w, this.screen.h);
+    this.ctx.fillStyle = '#C5E3BF';
+    this.ctx.fillRect(0, this.screen.halfH, this.screen.w, this.screen.h);
+  }
+
   draw() {
+    this.clearScreen();
+
+    this.isDrawing = true;
     for (let i = 0; i < this.screen.w; i++) {
       const vector = this.camera.geViewVector(i);
 
@@ -82,5 +90,6 @@ export default class Raycasting {
         this.ctx.fillRect(i, (this.screen.halfH - wallheight), 1, wallheight * 2);
       }
     }
+    this.isDrawing = false;
   }
 }

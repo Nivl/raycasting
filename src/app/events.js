@@ -31,11 +31,17 @@ export default class Events {
   }
 
   turnRight() {
-    console.info('turnRight not available');
+    if (this.raytracer.isDrawing === false) {
+      this.camera.turnRight();
+      this.raytracer.draw();
+    }
   }
 
   turnLeft() {
-    console.info('turnLeft not available');
+    if (this.raytracer.isDrawing === false) {
+      this.camera.turnLeft();
+      this.raytracer.draw();
+    }
   }
 
   jump() {
