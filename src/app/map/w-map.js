@@ -22,6 +22,9 @@ export default class WMap {
     if (err) {
       throw new Error(err.message);
     }
+
+    this.w = this.map.length;
+    this.h = this.map[0].length;
   }
 
   static validMap(map) {
@@ -76,5 +79,9 @@ export default class WMap {
     }
 
     return null;
+  }
+
+  findAt(x, y) {
+    return this.map[x][y];
   }
 }
