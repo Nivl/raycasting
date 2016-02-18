@@ -1,6 +1,7 @@
 import WMap from './map/w-map.js';
 import WMapTypes from './map/w-map-types';
 import Camera from './camera.js';
+import Events from './events.js';
 
 export default class Raycasting {
   constructor() {
@@ -8,6 +9,7 @@ export default class Raycasting {
     this.ctx = null;
     this.map = null;
     this.camera = null;
+    this.events = new Events(this, this.camera);
     this.screen = {
       w    : canvas.width,
       h    : canvas.height,
