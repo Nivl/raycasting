@@ -23,8 +23,8 @@ export default class WMap {
       throw new Error(err.message);
     }
 
-    this.w = this.map.length;
-    this.h = this.map[0].length;
+    this.h = this.map.length;
+    this.w = this.map[0].length;
   }
 
   static validMap(map) {
@@ -35,24 +35,24 @@ export default class WMap {
     const dataCount = {};
     const nbRow = map.length;
 
-    for (let i = 0; i < nbRow; i++) {
-      const row = map[i];
+    for (let y = 0; y < nbRow; y++) {
+      const row = map[y];
 
       if (Array.isArray(row) === false) {
-        return WMapErrors.generateError([i, 0], WMapErrors.NOT_AN_ARRAY);
+        return WMapErrors.generateError([y, 0], WMapErrors.NOT_AN_ARRAY);
       }
 
-      for (let j = 0; j < row.length; j++) {
-        const value = row[j];
+      for (let x = 0; x < row.length; x++) {
+        const value = row[x];
 
         // Checking the white list
         if (this.whiteList.indexOf(value) === -1) {
-          return WMapErrors.generateError([i, j], WMapErrors.NOT_AN_ARRAY, [value]);
+          return WMapErrors.generateError([y, x], WMapErrors.NOT_AN_ARRAY, [value]);
         }
 
         // Checking the count limit
         if (this.limits[value] && dataCount[value] && dataCount[value] >= this.limits[value]) {
-          return WMapErrors.generateError([i, j], WMapErrors.NOT_AN_ARRAY, [value, this.limits[value]]);
+          return WMapErrors.generateError([y, x], WMapErrors.NOT_AN_ARRAY, [value, this.limits[value]]);
         }
 
         dataCount[value] = ~~dataCount[value] + 1;
@@ -70,10 +70,10 @@ export default class WMap {
   }
 
   findFirst(type) {
-    for (let i = 0; i < this.map.length; i++) {
-      for (let j = 0; j < this.map[i].length; j++) {
-        if (this.map[i][j] === type) {
-          return [i, j];
+    for (let y = 0; y < this.map.length; y++) {
+      for (let x = 0; x < this.map[y].length; x++) {
+        if (this.map[y][x] === type) {
+          return { x, y };
         }
       }
     }
@@ -82,16 +82,16 @@ export default class WMap {
   }
 
   findAt(x, y) {
-    return this.map[x][y];
+    return this.map[y][x];
   }
 
   browse(callback) {
     let isNewRow = true;
 
-    for (let i = 0; i < this.map.length; i++) {
+    for (let y = 0; y < this.map.length; y++) {
       isNewRow = true;
-      for (let j = 0; j < this.map[i].length; j++) {
-        callback(i, j, this.map[i][j], isNewRow);
+      for (let x = 0; x < this.map[y].length; x++) {
+        callback(y, x, this.map[y][x], isNewRow);
         isNewRow = false;
       }
     }

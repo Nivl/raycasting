@@ -59,7 +59,7 @@ export default class Raycasting {
 
       let k = -1;
       for (let x = 0; x < this.map.w; x++) {
-        const newK = (x - this.camera.pos[0]) / vector.x;
+        const newK = (x - this.camera.pos.x) / vector.x;
         const y = this.camera.pos[1] + k * vector.y;
 
         if (newK > 0) {
@@ -72,8 +72,8 @@ export default class Raycasting {
       }
 
       for (let y = 0; y < this.map.h; y++) {
-        const newK = (y - this.camera.pos[1]) / vector.y;
-        const x = this.camera.pos[0] + k * vector.x;
+        const newK = (y - this.camera.pos.y) / vector.y;
+        const x = this.camera.pos.x + k * vector.x;
 
         if (newK > 0) {
           if (this.map.findAt(~~x, y) === WMapTypes.WALL) {
@@ -90,37 +90,6 @@ export default class Raycasting {
         this.ctx.fillRect(i, (this.screen.halfH - wallheight), 1, wallheight * 2);
       }
     }
-    this.drawMap();
     this.isDrawing = false;
-  }
-
-  drawMap() {
-    const blockSize = 10;
-    const defaultX = this.screen.w - (this.map.w * blockSize) - 10;
-    const defaultY = this.screen.h - (this.map.h * blockSize) - 10;
-    let xPos = defaultX;
-    let yPos = defaultY;
-    const camera = {
-      x: ~~this.camera.pos[0],
-      y: ~~this.camera.pos[1],
-    };
-
-    this.map.browse((x, y, type, isNewRow) => {
-      if (isNewRow && x > 0) {
-        xPos = defaultX;
-        yPos += blockSize;
-      }
-
-      if (type === WMapTypes.WALL) {
-        this.ctx.fillStyle = '#000';
-      } else if (x === camera.x && y === camera.y) {
-        this.ctx.fillStyle = 'rgb(200,0,0)';
-      } else {
-        this.ctx.fillStyle = '#fff';
-      }
-
-      this.ctx.fillRect(xPos, yPos, blockSize, blockSize);
-      xPos += blockSize;
-    });
   }
 }

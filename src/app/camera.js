@@ -24,8 +24,8 @@ export default class Camera {
     const cosAngle = Math.cos(this.viewAngleX);
 
     // We apply the angle and we translate from (0;0) to the actual user coordinates
-    x = ((x * cosAngle) - (y * sinAngle)) + this.pos[0];
-    y = ((x * sinAngle) + (y * cosAngle)) + this.pos[1];
+    x = ((x * cosAngle) - (y * sinAngle)) + this.pos.x;
+    y = ((x * sinAngle) + (y * cosAngle)) + this.pos.y;
 
     return { x, y };
   }
@@ -39,8 +39,8 @@ export default class Camera {
     const pov = this.getPointOfView(pixelX);
 
     return {
-      x: pov.x - this.pos[0],
-      y: pov.y - this.pos[1],
+      x: pov.x - this.pos.x,
+      y: pov.y - this.pos.y,
     };
   }
 
@@ -54,13 +54,13 @@ export default class Camera {
 
   moveForward() {
     const vector = this.geViewVector(this.screen.halfW);
-    this.pos[0] += vector.x * 0.05;
-    this.pos[1] += vector.y * 0.05;
+    this.pos.x += vector.x * 0.05;
+    this.pos.y += vector.y * 0.05;
   }
 
   moveFBackward() {
     const vector = this.geViewVector(this.screen.halfW);
-    this.pos[0] -= vector.x * 0.1;
-    this.pos[1] -= vector.y * 0.1;
+    this.pos.x -= vector.x * 0.1;
+    this.pos.y -= vector.y * 0.1;
   }
 }
