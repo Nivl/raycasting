@@ -23,11 +23,17 @@ export default class Events {
   }
 
   moveForward() {
-    console.info('moveForward not available');
+    if (this.raytracer.isDrawing === false) {
+      this.camera.moveForward();
+      this.raytracer.draw();
+    }
   }
 
   moveBackward() {
-    console.info('moveBackward not available');
+    if (this.raytracer.isDrawing === false) {
+      this.camera.moveFBackward();
+      this.raytracer.draw();
+    }
   }
 
   turnRight() {
