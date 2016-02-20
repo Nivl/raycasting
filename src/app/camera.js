@@ -1,9 +1,10 @@
-
+import WMapTypes from './map/w-map-types';
 
 export default class Camera {
-  constructor(pos, screen) {
+  constructor(pos, screen, map) {
     this.screen = screen;
     this.pos = pos;
+    this.map = map;
 
     this.d = 0.5;
     this.p = 1;
@@ -56,15 +57,27 @@ export default class Camera {
 
   moveForward() {
     const vector = this.geViewVector(this.screen.halfW);
-    this.pos.x += vector.x * 0.5;
-    this.pos.y += vector.y * 0.5;
+    const newX = this.pos.x + (vector.x * 0.5);
+    const newY = this.pos.y + (vector.y * 0.5);
+
+    if (this.map.findAt(newX, newY) !== WMapTypes.WALL) {
+      this.pos.x = newX;
+      this.pos.y = newY;
+    }
+
     console.log(this.pos.x, this.pos.y);
   }
 
   moveFBackward() {
     const vector = this.geViewVector(this.screen.halfW);
-    this.pos.x -= vector.x * 0.5;
-    this.pos.y -= vector.y * 0.5;
+    const newX = this.pos.x - (vector.x * 0.5);
+    const newY = this.pos.y - (vector.y * 0.5);
+
+    if (this.map.findAt(newX, newY) !== WMapTypes.WALL) {
+      this.pos.x = newX;
+      this.pos.y = newY;
+    }
+
     console.log(this.pos.x, this.pos.y);
   }
 }

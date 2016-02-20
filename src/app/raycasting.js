@@ -31,7 +31,7 @@ export default class Raycasting {
 
   start() {
     if (this.map) {
-      this.camera = new Camera(this.map.findFirst(WMapTypes.CAMERA), this.screen);
+      this.camera = new Camera(this.map.findFirst(WMapTypes.CAMERA), this.screen, this.map);
       this.events = new Events(this, this.camera);
       this.draw();
     } else {
@@ -58,18 +58,18 @@ export default class Raycasting {
       const vector = this.camera.geViewVector(i);
 
       let k = -1;
-      for (let x = 0; x < this.map.w; x++) {
-        const newK = (x - this.camera.pos.x) / vector.x;
-        const y = this.camera.pos[1] + k * vector.y;
-
-        if (newK > 0) {
-          if (this.map.findAt(x, ~~y) === WMapTypes.WALL) {
-            if (k < 0 || newK < k) {
-              k = newK;
-            }
-          }
-        }
-      }
+      // for (let x = 0; x < this.map.w; x++) {
+      //   const newK = (x - this.camera.pos.x) / vector.x;
+      //   const y = this.camera.pos[1] + k * vector.y;
+      //
+      //   if (newK > 0) {
+      //     if (this.map.findAt(x, ~~y) === WMapTypes.WALL) {
+      //       if (k < 0 || newK < k) {
+      //         k = newK;
+      //       }
+      //     }
+      //   }
+      // }
 
       for (let y = 0; y < this.map.h; y++) {
         const newK = (y - this.camera.pos.y) / vector.y;

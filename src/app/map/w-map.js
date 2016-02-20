@@ -82,7 +82,7 @@ export default class WMap {
   }
 
   findAt(x, y) {
-    return this.map[y][x];
+    return this.map[~~y][~~x];
   }
 
   browse(callback) {
