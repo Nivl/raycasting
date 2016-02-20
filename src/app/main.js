@@ -1,4 +1,5 @@
 import Raycasting from './raycasting';
+import '../index.scss';
 
 const raycasting = new Raycasting();
 
