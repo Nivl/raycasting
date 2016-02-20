@@ -46,21 +46,25 @@ export default class Camera {
 
   turnRight() {
     this.viewAngleX -= 0.05;
+    console.log(this.viewAngleX);
   }
 
   turnLeft() {
     this.viewAngleX += 0.05;
+    console.log(this.viewAngleX);
   }
 
   moveForward() {
     const vector = this.geViewVector(this.screen.halfW);
-    this.pos.x += vector.x * 0.05;
-    this.pos.y += vector.y * 0.05;
+    this.pos.x += vector.x * 0.5;
+    this.pos.y += vector.y * 0.5;
+    console.log(this.pos.x, this.pos.y);
   }
 
   moveFBackward() {
     const vector = this.geViewVector(this.screen.halfW);
-    this.pos.x -= vector.x * 0.1;
-    this.pos.y -= vector.y * 0.1;
+    this.pos.x -= vector.x * 0.5;
+    this.pos.y -= vector.y * 0.5;
+    console.log(this.pos.x, this.pos.y);
   }
 }
