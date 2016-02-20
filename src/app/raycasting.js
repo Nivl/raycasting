@@ -90,6 +90,37 @@ export default class Raycasting {
         this.ctx.fillRect(i, (this.screen.halfH - wallheight), 1, wallheight * 2);
       }
     }
+    this.drawMap();
     this.isDrawing = false;
+  }
+
+  drawMap() {
+    const blockSize = 10;
+    const defaultX = 30;
+    const defaultY = this.screen.h - (this.map.h * blockSize) - 30;
+    let xPos = defaultX;
+    let yPos = defaultY;
+    const camera = {
+      x: ~~this.camera.pos.x,
+      y: ~~this.camera.pos.y,
+    };
+
+    this.map.browse((y, x, type, isNewRow) => {
+      if (isNewRow && y > 0) {
+        xPos = defaultX;
+        yPos += blockSize;
+      }
+
+      if (type === WMapTypes.WALL) {
+        this.ctx.fillStyle = '#000';
+      } else if (x === camera.x && y === camera.y) {
+        this.ctx.fillStyle = 'rgb(200,0,0)';
+      } else {
+        this.ctx.fillStyle = '#fff';
+      }
+
+      this.ctx.fillRect(xPos, yPos, blockSize, blockSize);
+      xPos += blockSize;
+    });
   }
 }
