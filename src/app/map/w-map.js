@@ -84,4 +84,16 @@ export default class WMap {
   findAt(x, y) {
     return this.map[x][y];
   }
+
+  browse(callback) {
+    let isNewRow = true;
+
+    for (let i = 0; i < this.map.length; i++) {
+      isNewRow = true;
+      for (let j = 0; j < this.map[i].length; j++) {
+        callback(i, j, this.map[i][j], isNewRow);
+        isNewRow = false;
+      }
+    }
+  }
 }
